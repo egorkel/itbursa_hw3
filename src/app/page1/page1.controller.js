@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('hw3')
-  .controller('page1Ctrl', function () {
-
-  })
+  .controller('page1Ctrl', ['$scope', '$window', '$state',
+    function ($scope, $window, $state) {
+    $scope.userName = '';
+  }])
 
   .config(['$stateProvider',
     function ($stateProvider) {

@@ -18,8 +18,17 @@ angular.module('hw3', ['ui.router'])
         {
           url: '/login',
           templateUrl: 'app/login/login.html',
-          controller: 'loginCtrl'
+          controller: 'loginCtrl',
+          resolve: {
+            isLogged: ['$window', '$state', function ($window, $state) {
+              if ($window.localStorage.name !==null) {
+                $state.go('page1');
+              }
+            }]
+          }
         });
 
-      $urlRouterProvider.otherwise('/login');
+      $urlRouterProvider.otherwise(function ($injector, $location) {
+        $location.url('/login');
+      });
     }]);

@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('hw3', ['ui.router'])
-  .controller('loginCtrl', ['$scope', function ($scope) {
-    $scope.localStorage = {};
-    $scope.localStorage.username = '';
-  }])
+  .controller('loginCtrl', ['$scope', '$window',
+    function ($scope, $window) {
+      $window.localStorage.name = 'test';
+      console.log($window.localStorage.name);
+    }])
   .config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
       $stateProvider

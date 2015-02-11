@@ -15,8 +15,8 @@ angular.module('hw3')
             isLogged: ['$state', '$q', 'authServ',
               function ($state, $q, authServ) {
                 if (!authServ.authorized()) {
-                  $state.go('/');
-                  //console.log('Unauthorized!');
+                  $state.go('login');
+                  console.log('Unauthorized!');
                   return $q.reject('Unauthorized!');
                 }
               }]
@@ -24,6 +24,6 @@ angular.module('hw3')
         });
 
       $urlRouterProvider.otherwise(function ($injector, $location) {
-        $location.url('/page1');
+        $location.url('/');
       });
     }]);

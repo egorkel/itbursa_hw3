@@ -15,9 +15,16 @@ angular.module('hw3')
             isLogged: ['$state', '$q', 'authServ',
               function ($state, $q, authServ) {
                 if (!authServ.authorized()) {
-                  $state.go('/');
-                  //console.log('Unauthorized!');
+                  $state.go('login');
+                  console.log('Unauthorized!');
                   return $q.reject('Unauthorized!');
+                } else
+
+                if (!authServ.isAdmin()) {
+                  //authServ.logout();
+                  console.log('Access denied');
+                  $state.go('login', {action: 'logout'});
+                  return $q.reject('Access denied');
                 }
               }]
           }

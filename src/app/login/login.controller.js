@@ -6,6 +6,7 @@ angular.module('hw3', ['ui.router'])
 
       $scope.login = function (userName) {
         authServ.login(userName);
+        // Авторизация успешна
         if (authServ.authorized()) {
           $state.go('page1');
         }
@@ -16,7 +17,7 @@ angular.module('hw3', ['ui.router'])
   .config(['$stateProvider',
     function ($stateProvider) {
       $stateProvider
-        .state('/',
+        .state('login',
         {
           url: '/',
           templateUrl: 'app/login/login.html',
@@ -32,7 +33,7 @@ angular.module('hw3', ['ui.router'])
                 } else {
                   if (authServ.authorized()) {
                     $state.go('page1');
-                    //console.log('Already logged in');
+                    console.log('Already logged in');
                     return $q.reject('Already logged in');
                   }
                 }

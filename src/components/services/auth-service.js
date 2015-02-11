@@ -4,19 +4,19 @@ angular.module('hw3')
   .factory('authServ', ['$window', function ($window) {
     return {
       authorized: function () {
-        return !!$window.localStorage.username;
+        return !!$window.localStorage.getItem('username');
       },
 
       login: function (userName) {
-        $window.localStorage.username = userName;
+        $window.localStorage.setItem('username', userName);
       },
 
       logout: function () {
-        $window.localStorage.username = '';
+        $window.localStorage.setItem('username', '');
       },
 
       isAdmin: function () {
-        return $window.localStorage.username === 'admin';
+        return $window.localStorage.getItem('username') === 'admin';
       }
     };
   }]);

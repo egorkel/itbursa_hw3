@@ -7,6 +7,6 @@ angular.module('hw3')
 
       //Hide navbar when go to login page
       $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-        $scope.hide = (toState.url === '/login');
+        $scope.hide = (toState.url === '/');
       });
     }]);

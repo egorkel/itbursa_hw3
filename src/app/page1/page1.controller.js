@@ -18,7 +18,7 @@ angular.module('hw3')
             isLogged: ['$window', '$state', '$q',
               function ($window, $state, $q) {
                 if (!$window.localStorage.username) {
-                  $state.go('login');
+                  $state.go('/');
                   //console.log('Unauthorized!');
                   return $q.reject('Unauthorized!');
                 }

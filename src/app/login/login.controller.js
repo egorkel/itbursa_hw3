@@ -11,12 +11,12 @@ angular.module('hw3', ['ui.router'])
 
     }])
 
-  .config(['$stateProvider', '$urlRouterProvider',
-    function ($stateProvider, $urlRouterProvider) {
+  .config(['$stateProvider',
+    function ($stateProvider) {
       $stateProvider
-        .state('login',
+        .state('/',
         {
-          url: '/login',
+          url: '/',
           templateUrl: 'app/login/login.html',
           controller: 'loginCtrl',
           params: {
@@ -37,7 +37,5 @@ angular.module('hw3', ['ui.router'])
               }]
           }
         });
-
-      $urlRouterProvider.when('/', '/login');
 
     }]);

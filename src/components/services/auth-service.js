@@ -1,18 +1,22 @@
 'use strict';
 
 angular.module('hw3')
-  .factory('authServ', function () {
+  .factory('authServ', ['$window', function ($window) {
     return {
-      authCheck: function () {
+      authorized: function () {
+        return !!$window.localStorage.username;
+      },
 
+      login: function (userName) {
+        $window.localStorage.username = userName;
       },
 
       logout: function () {
-
+        $window.localStorage.username = '';
       },
 
       isAdmin: function () {
-
+        return $window.localStorage.username === 'admin';
       }
     };
-  });
+  }]);

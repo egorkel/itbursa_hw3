@@ -1,12 +1,14 @@
 'use strict';
 
 angular.module('hw3', ['ui.router'])
-  .controller('loginCtrl', ['$rootScope', '$scope', '$window', '$state',
-    function ($rootScope, $scope, $window, $state) {
+  .controller('loginCtrl', ['$scope', '$state', 'authServ',
+    function ($scope, $state, authServ) {
 
       $scope.login = function (userName) {
-        $window.localStorage.username = userName;
-        $state.go('page1');
+        authServ.login(userName);
+        if (authServ.authorized()) {
+          $state.go('page1');
+        }
       };
 
     }])
@@ -23,12 +25,12 @@ angular.module('hw3', ['ui.router'])
             action: {value: 'no action'}
           },
           resolve: {
-            isLogged: ['$window', '$state', '$stateParams', '$q',
-              function ($window, $state, $stateParams, $q) {
+            isLogged: ['$state', '$stateParams', '$q', 'authServ',
+              function ($state, $stateParams, $q, authServ) {
                 if($stateParams.action === 'logout') {
-                  $window.localStorage.username = '';
+                  authServ.logout();
                 } else {
-                  if ($window.localStorage.username) {
+                  if (authServ.authorized()) {
                     $state.go('page1');
                     //console.log('Already logged in');
                     return $q.reject('Already logged in');

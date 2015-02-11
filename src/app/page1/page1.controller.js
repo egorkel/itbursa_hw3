@@ -3,8 +3,8 @@
 angular.module('hw3')
   .controller('page1Ctrl', function () {})
 
-  .config(['$stateProvider', '$urlRouterProvider',
-    function ($stateProvider, $urlRouterProvider) {
+  .config(['$stateProvider',
+    function ($stateProvider) {
       $stateProvider
         .state('page1',
         {
@@ -12,18 +12,16 @@ angular.module('hw3')
           templateUrl: 'app/page1/page1.html',
           controller: 'page1Ctrl',
           resolve: {
-            isLogged: ['$state', '$q', 'authServ',
-              function ($state, $q, authServ) {
+            isLogged: ['$state', '$q', 'authServ', '$timeout',
+              function ($state, $q, authServ, $timeout) {
                 if (!authServ.authorized()) {
-                  $state.go('login');
-                  console.log('Unauthorized!');
+                  $timeout(function () {
+                    $state.go('login');
+                  }, 0);
                   return $q.reject('Unauthorized!');
                 }
               }]
           }
         });
 
-      $urlRouterProvider.otherwise(function ($injector, $location) {
-        $location.url('/');
-      });
     }]);

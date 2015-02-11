@@ -12,11 +12,12 @@ angular.module('hw3')
           templateUrl: 'app/page2/page2.html',
           controller: 'page2Ctrl',
           resolve: {
-            isLogged: ['$state', '$q', 'authServ',
-              function ($state, $q, authServ) {
+            isLogged: ['$state', '$q', 'authServ', '$timeout',
+              function ($state, $q, authServ, $timeout) {
                 if (!authServ.authorized()) {
-                  $state.go('/');
-                  //console.log('Unauthorized!');
+                  $timeout(function () {
+                    $state.go('login');
+                  }, 0);
                   return $q.reject('Unauthorized!');
                 }
               }]

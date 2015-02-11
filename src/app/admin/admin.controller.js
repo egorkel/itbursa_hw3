@@ -12,19 +12,22 @@ angular.module('hw3')
           templateUrl: 'app/admin/admin.html',
           controller: 'adminCtrl',
           resolve: {
-            isLogged: ['$state', '$q', 'authServ',
-              function ($state, $q, authServ) {
-                if (!authServ.authorized()) {
-                  $state.go('login');
-                  console.log('Unauthorized!');
-                  return $q.reject('Unauthorized!');
-                } else
+            isLogged: ['$state', '$q', 'authServ', '$timeout',
+              function ($state, $q, authServ, $timeout) {
 
-                if (!authServ.isAdmin()) {
-                  //authServ.logout();
-                  console.log('Access denied');
-                  $state.go('login', {action: 'logout'});
-                  return $q.reject('Access denied');
+                if (!authServ.authorized()) {
+                  $timeout(function () {
+                    $state.go('login');
+                  }, 0);
+                  return $q.reject('Unauthorized!');
+                } else {
+
+                  if (!authServ.isAdmin()) {
+                    $timeout(function () {
+                      $state.go('login', {action: 'logout'});
+                    }, 0);
+                    return $q.reject('Access denied');
+                  }
                 }
               }]
           }
